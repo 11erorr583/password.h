@@ -8,10 +8,14 @@ Authentication
 password pwd;
 char user_input[] = "your_input";
 bool is_authenticated = pwd.authentication(user_input, strlen(user_input));
+
 show_password:
 bool is_valid = pwd.show();
+
 Hide_password:
 bool is_valid = pwd.hide();
+
 Generate_ password:
-string new_password = pwd.pass_generator(8); // Generates an 8-character password
+string new_password = pwd.pass_generator(int length=8);// Generates an 8-character password
+string new_PIN = pwd.pass_generator();// Generates password of 5-characters
 I am trying to further improve my code :)
