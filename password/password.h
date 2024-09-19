@@ -51,7 +51,7 @@ class password
     }
     int check=0;
     int word=0;
-     cout<<"\033[0;0H"; // moves the cursor to the beginnig of screen
+       cout<<"\033[0;0H";
         
          cout<<"\033[2J";
           cout<<" ENTER PIN: ";
@@ -124,7 +124,7 @@ class password
     }
     int loop=0;
      //cout<<"\033[0G";
-        cout<<"\033[0;0H"; // moves the cursor to the beginnig of screen
+        cout<<"\033[0;0H"; // moves the cursor to the beginnig of line
          cout<<"\033[2J"; // clears screen
           cout<<" ENTER PIN: ";
          
@@ -139,13 +139,17 @@ class password
         
       cout<<" ENTER PIN: ";
        Beep(500,326);
-      
-      for(int k=0;k<(length) ; k++)
-     {
-     
-      cout<<" "<<pass[k]<<" ";
-
-    }
+      for(int k=0;k<length ; k++)
+      {
+        if( k == loop)
+        {
+          cout<<" "<<pass[k]<<" ";
+        }
+        if(k < loop)
+        {
+          cout<<" "<<Hide[k]<<" ";
+        }
+      }
      //delay for second
      for(volatile int i=0;i<=500000000;i++)
       {}
@@ -197,16 +201,13 @@ for(int i=0;i<=loop;i++)
 // now I am trying to create a feature that generates (returns) the password automatically you can also provide no of digits else it will be 5
   string pass_generator(int digits = 5 )
   {
-    char result[digits];
-    for(int i=0;i<digits;i++)
-    {
-      result[i]=' ';
-    }
+     string result(digits,' ');
+
     srand(time(nullptr));
      if( digits < 3 )
      {
-       cout<<  " PIN should be >= 3 so now it's 5";
-       return pass_generator( digits );
+       cout<<  " PIN should be >= 3 so now it's 5"<<endl;
+       return pass_generator(  );
      }
      // one character is Alphabet , other  must be digit , and another must be special character
      // special characters 
@@ -238,7 +239,7 @@ for(int i=0;i<=loop;i++)
       // any third one must be digit
      again: int digit_number = (rand() % digits) ;
        
-      if(  alpha_number == digit_number ||digit_number == random_number)
+      if(  digit_number == alpha_number ||digit_number == random_number)
       {
           goto again;
       } 
@@ -249,16 +250,16 @@ for(int i=0;i<=loop;i++)
       // now declaring data to other characters in result string
       for(int pass = 0 ; pass < digits ; pass++)
       {
-        if(pass != random_number && pass != random_number && pass != alpha_number)
+        if(pass != random_number && pass != digit_number && pass != alpha_number)
         {
          int majicno = rand() % 26;
          char majicchar = aphas[majicno];
           result[pass] = majicchar;
         }
+        
       }
      
      return result;
 
   }
 };
- 
